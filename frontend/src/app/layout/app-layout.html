@@ -1,0 +1,126 @@
+<nz-layout class="shell">
+  <nz-sider
+    class="shell__sider"
+    nzCollapsible
+    [nzCollapsed]="collapsed()"
+    [nzTrigger]="null"
+    [nzWidth]="228"
+    [nzCollapsedWidth]="64"
+    nzTheme="dark"
+  >
+    <div class="brand" (click)="home()">
+      <div class="brand__logo">天</div>
+      @if (!collapsed()) {
+        <div class="brand__text">
+          <div class="brand__name">天枢</div>
+          <div class="brand__sub">低空智能运营管控平台</div>
+        </div>
+      }
+    </div>
+
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="collapsed()" class="shell__menu">
+      @for (item of menus(); track item.label) {
+        @if (item.children?.length) {
+          <li
+            nz-submenu
+            [nzTitle]="item.label"
+            [nzIcon]="item.icon ?? ''"
+            [nzOpen]="openGroups().has(item.label)"
+            (nzOpenChange)="onGroupOpen(item.label, $event)"
+          >
+            <ul>
+              @for (child of item.children; track child.label) {
+                <li nz-menu-item [nzSelected]="currentUrl().startsWith(child.path ?? '')" [routerLink]="child.path">
+                  {{ child.label }}
+                </li>
+              }
+            </ul>
+          </li>
+        } @else {
+          <li nz-menu-item [nzSelected]="currentUrl().startsWith(item.path ?? '//')" [routerLink]="item.path">
+            @if (item.icon) {
+              <span nz-icon [nzType]="item.icon"></span>
+            }
+            <span>{{ item.label }}</span>
+          </li>
+        }
+      }
+    </ul>
+  </nz-sider>
+
+  <nz-layout>
+    <nz-header class="topbar">
+      <div class="topbar__left">
+        <button nz-button nzType="text" class="topbar__collapse" (click)="toggle()">
+          <span nz-icon [nzType]="collapsed() ? 'menu-unfold' : 'menu-fold'"></span>
+        </button>
+        <div class="topbar__crumb">
+          <span class="topbar__crumb-item" (click)="home()">首页</span>
+          @for (crumb of breadcrumbs(); track crumb) {
+            <span class="topbar__crumb-sep">/</span>
+            <span class="topbar__crumb-item">{{ crumb }}</span>
+          }
+        </div>
+      </div>
+
+      <div class="topbar__right">
+        <span class="topbar__status" nz-tooltip [nzTooltipTitle]="realtimeOn() ? '实时通道已连接' : '实时通道未连接（自动降级为轮询）'">
+          <span class="dot" [class.dot--on]="realtimeOn()"></span>
+          {{ realtimeOn() ? '实时' : '轮询' }}
+        </span>
+
+        <button nz-button nzType="text" class="topbar__icon-btn" nz-dropdown [nzDropdownMenu]="notifyMenu" nzTrigger="click" nzPlacement="bottomRight">
+          <nz-badge [nzCount]="unreadCount()" [nzOverflowCount]="99">
+            <span nz-icon nzType="bell" class="topbar__bell"></span>
+          </nz-badge>
+        </button>
+        <nz-dropdown-menu #notifyMenu="nzDropdownMenu">
+          <div class="notify">
+            <div class="notify__head">
+              <span>未读消息（{{ unreadCount() }}）</span>
+              <a (click)="markAllRead()">全部已读</a>
+            </div>
+            @if (notifications().length) {
+              <div class="notify__list">
+                @for (item of notifications(); track item.id) {
+                  <div class="notify__item" [routerLink]="'/notifications'" (click)="markRead(item, $event)">
+                    <div class="notify__title">{{ item.title }}</div>
+                    <div class="notify__content">{{ item.content }}</div>
+                    <div class="notify__time">{{ time(item.createdAt) }}</div>
+                  </div>
+                }
+              </div>
+            } @else {
+              <nz-empty nzNotFoundContent="暂无未读消息" />
+            }
+            <div class="notify__foot">
+              <a routerLink="/notifications">查看全部消息</a>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+
+        <div class="topbar__user" nz-dropdown [nzDropdownMenu]="userMenu" nzTrigger="click" nzPlacement="bottomRight">
+          <nz-avatar [nzText]="(user()?.displayName ?? 'U').slice(0, 1)" nzSize="small" class="topbar__avatar"></nz-avatar>
+          <div class="topbar__user-info">
+            <div class="topbar__user-name">{{ user()?.displayName }}</div>
+            <div class="topbar__user-role">{{ rolesText() }}</div>
+          </div>
+          <span nz-icon nzType="down" class="topbar__caret"></span>
+        </div>
+        <nz-dropdown-menu #userMenu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item routerLink="/profile"><span nz-icon nzType="user"></span> 我的资料</li>
+            <li nz-menu-item routerLink="/notifications"><span nz-icon nzType="bell"></span> 消息通知</li>
+            <li nz-menu-divider></li>
+            <li nz-menu-item (click)="logout()"><span nz-icon nzType="logout"></span> 退出登录</li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+    </nz-header>
+
+    <nz-content class="shell__content">
+      <router-outlet />
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+

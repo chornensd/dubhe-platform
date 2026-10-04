@@ -1,0 +1,52 @@
+# ---- OS / IDE ----
+.DS_Store
+Thumbs.db
+*.suo
+*.user
+.vs/
+.idea/
+*.iml
+
+# ---- 日志与运行时产物 ----
+*.log
+logs/
+backups/
+TestResults/
+
+# ---- 本地凭证 / 机密（仓库不包含任何明文凭证）----
+.env
+*.env
+!.env.example
+
+# ---- .NET ----
+**/bin/
+**/obj/
+
+# ---- Node / Angular ----
+node_modules/
+dist/
+.angular/
+__screenshots__/
+
+# ---- Flutter / Dart ----
+.dart_tool/
+.flutter-plugins-dependencies
+**/build/
+**/.gradle/
+**/.kotlin/
+**/local.properties
+**/Flutter/ephemeral/
+
+# ---- Python ----
+__pycache__/
+*.pyc
+
+# ---- 大文件样例（脚本会自动下载）----
+backend/samples/ourairports-airports.csv
+
+# ---- 移动端 UI 巡检运行产物（保留截图，忽略报告）----
+mobile_app/tool/shots/report.json
+mobile_app/tool/shots/report.txt
+mobile_app/tool/shots/progress.txt
+mobile_app/tool/shots/dbg-*
+mobile_app/tool/dbg-*.mjs

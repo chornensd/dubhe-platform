@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Dubhe.Api/Dubhe.Api.csproj" />
+    <Project Path="src/Dubhe.Application/Dubhe.Application.csproj" />
+    <Project Path="src/Dubhe.Domain/Dubhe.Domain.csproj" />
+    <Project Path="src/Dubhe.Infrastructure/Dubhe.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Dubhe.Tests/Dubhe.Tests.csproj" />
+  </Folder>
+</Solution>

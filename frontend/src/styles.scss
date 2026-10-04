@@ -1,0 +1,290 @@
+/* 天枢·低空智能运营管控平台 — 全局样式 */
+
+:root {
+  --brand: #1677ff;
+  --bg: #f5f7fa;
+  --card-border: #eef1f6;
+  --text: #1f2637;
+  --text-secondary: #6b7688;
+  --radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--brand);
+}
+
+/* ============ 通用卡片 ============ */
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 2px 8px rgba(23, 43, 77, 0.04);
+  padding: 16px 18px;
+}
+
+.card + .card,
+.card + .grid,
+.grid + .card {
+  margin-top: 16px;
+}
+
+.card__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.card__subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* ============ 栅格 ============ */
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid--5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.grid--6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.grid--sidebar {
+  grid-template-columns: minmax(0, 1fr) 360px;
+}
+
+@media (max-width: 1400px) {
+  .grid--5,
+  .grid--6 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1100px) {
+  .grid--3,
+  .grid--4,
+  .grid--5,
+  .grid--6,
+  .grid--sidebar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .grid--2,
+  .grid--3,
+  .grid--4,
+  .grid--5,
+  .grid--6,
+  .grid--sidebar {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============ 筛选栏 ============ */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.filter-bar__label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.filter-bar__spacer {
+  flex: 1;
+}
+
+/* ============ 详情描述 ============ */
+.desc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 24px;
+}
+
+@media (max-width: 900px) {
+  .desc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.desc-item {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.7;
+  min-width: 0;
+}
+
+.desc-item__label {
+  color: var(--text-secondary);
+  flex: 0 0 96px;
+  text-align: right;
+}
+
+.desc-item__value {
+  color: var(--text);
+  flex: 1;
+  word-break: break-all;
+}
+
+/* ============ 时间线 ============ */
+.timeline-note {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+/* ============ 值文本 ============ */
+.mono {
+  font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+  font-size: 12.5px;
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-danger {
+  color: #ff4d4f;
+}
+
+.text-success {
+  color: #52c41a;
+}
+
+.text-warning {
+  color: #faad14;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.mb-8 {
+  margin-bottom: 8px;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+/* ============ 大屏深色区 ============ */
+.dashboard-dark {
+  background: linear-gradient(160deg, #071528 0%, #0e2b52 100%);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+/* ============ ng-zorro 微调 ============ */
+.ant-table-thead > tr > th {
+  background: #f7f9fc !important;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.ant-table-tbody > tr > td {
+  font-size: 13px;
+}
+
+.ant-modal-body {
+  max-height: 68vh;
+  overflow: auto;
+}
+
+.ant-form-item-label > label {
+  font-size: 13px;
+}
+
+.ant-card-body {
+  padding: 16px 18px;
+}
+
+.page-loading {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+/* 登录页 */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  background: #0b1e3d;
+}
+
+.auth-page__hero {
+  flex: 1.1;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(22, 119, 255, 0.35), transparent 55%),
+    radial-gradient(circle at 75% 70%, rgba(54, 207, 201, 0.25), transparent 50%),
+    linear-gradient(135deg, #071528 0%, #103362 100%);
+  color: #fff;
+  padding: 56px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.auth-page__panel {
+  width: 480px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 48px;
+}
+
+@media (max-width: 1000px) {
+  .auth-page__hero {
+    display: none;
+  }
+  .auth-page__panel {
+    width: 100%;
+  }
+}

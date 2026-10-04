@@ -1,0 +1,13 @@
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.idea/
+logs/
+*.log
+app.log
+app.err.log
+TestResults/
+samples/ourairports-airports.csv
+backups/

@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    container_name: dubhe-postgres
+    environment:
+      POSTGRES_DB: dubhe
+      POSTGRES_USER: dubhe
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in backend/.env (copy .env.example first)}
+    ports:
+      - "5432:5432"
+    volumes:
+      - dubhe-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U dubhe -d dubhe" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  dubhe-pgdata:
